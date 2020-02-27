@@ -1,0 +1,153 @@
+# Vi laver en knap med forskellige egenskaber som bliver brugt når vi bruger CustButton.
+# Det efter @Button betyder at det er en knap/Button
+<CustButton@Button>:
+    # Skifter størrelsen på teksten
+    font_size: 15
+    # Laver om på farven
+    color: 0, 0, 0, 1
+    # Gør at baggrunden bliver hvid
+    background_normal: ''
+    # Gør at baggrunden, når knappen er trykket på, bliver hvid
+    background_down: ''
+    # Bestemmer størrelsen på knappen
+    size_hint: .3, .10
+# Vi laver en tekst med forskellige egenskaber som bliver brugt når vi bruger CustLabel.
+<CustLabel@Label>:
+    # Bestemmer farven
+    color: 0,0,0,1
+    font_size: 14
+    size_hint: .3,.10
+
+<TextInputEntry@TextInput>:
+    # Gør så der kun kan være en linje og ikke flere.
+    multiline: False
+    font_size: 14
+    size_hint: .2,.05
+    # Gør så når man trykker tab, rykker man videre til næste tekstboks.
+    write_tab: False
+
+<CustTextInput@TextInput>:
+    font_size: 14
+    size_hint: .67, .975
+    # Bestemmer baggrund farven
+    background_color: .88, .88, .88, 1
+
+# Vi har en skærm som hedder frenchGuardScreen, det skal den også hedde i .py filen, så de kan kommunikere
+<Layout>:
+    # Giver Layout id'et base
+    id: base
+    CustTextInput:
+        id: idPrint
+        # Bestemmer positionen
+        pos_hint: {"x": .32, "y": .01}
+        # text er teksten
+        text: ""
+    CustButton:
+        # Gør noget når man slipper knappen efter man har klikket på den.
+        # Dette tilfælde åbner den funktionen makeInsult(0), som ligger i root/frenchGuardScreen
+        on_release: root.makeInsult(0)
+        text: "RANDOM INSULT"
+        pos_hint: {"x": .01, "top": 0.985}
+    CustButton:
+        # Gør noget når man klikker på knappen
+        on_press:
+            # Her skifter den skærm i til højre, hvor den varer 1 sekundt og skifter til "customInsultScreen"
+            root.manager.transition.direction = "right"
+            root.manager.transition.duration = 1
+            root.manager.current ="customInsultScreen"
+        text: "CUSTOM INSULT"
+        pos_hint: {"x": .01, "top": 0.870}
+    CustButton:
+        on_release: root.sayInsult(idPrint.text)
+        text: "READ"
+        pos_hint: {"x": .01, "y": .4}
+
+<customInsultScreen>:
+    id: base
+    Image:
+        # Her bruger Image en source, i dette tilfælde "Test.png"
+        source: 'Test.png'
+        size_hint: .6, .6
+        pos_hint: {"x": .33, "y": .10}
+
+    TextInput:
+        size_hint: .6, .1
+        pos_hint: {"x": .33, "y": .75}
+        background_color: .88, .88, .88, 1
+        font_size: 14
+        text: "I don't want to talk to you no more you <Adjective> <Job>!... I <Verb> in your general direction! Your <Family Member> was a <Job 2> and your <Family Member 2> smelt of <Noun>!"
+
+    CustLabel:
+        text: "Write an Adjective"
+        pos_hint: {"x": .015, "top": .95}
+    TextInputEntry:
+        id: idEntryAd
+        pos_hint: {"x": .06, "top": 0.885}
+
+    CustLabel:
+        text: "Write a Job"
+        pos_hint: {"x": .015, "top": .85}
+    TextInputEntry:
+        id: idEntryJob1
+        pos_hint: {"x": .06, "top": 0.785}
+
+    CustLabel:
+        text: "Write a Verb"
+        pos_hint: {"x": .015, "top": .75}
+    TextInputEntry:
+        id: idEntryVerb
+        pos_hint: {"x": .06, "top": 0.685}
+
+    CustLabel:
+        text: "Write a Family Member"
+        pos_hint: {"x": .015, "top": .65}
+    TextInputEntry:
+        id: idEntryFM1
+        pos_hint: {"x": .06, "top": 0.585}
+
+    CustLabel:
+        text: "Write a Job 2"
+        pos_hint: {"x": .015, "top": .55}
+    TextInputEntry:
+        id: idEntryJob2
+        pos_hint: {"x": .06, "top": 0.485}
+
+    CustLabel:
+        text: "Write a Family Member 2"
+        pos_hint: {"x": .015, "top": .45}
+    TextInputEntry:
+        id: idEntryFM2
+        pos_hint: {"x": .06, "top": 0.385}
+
+    CustLabel:
+        text: "Write a Noun"
+        pos_hint: {"x": .015, "top": .35}
+    TextInputEntry:
+        id: idEntryNoun
+        pos_hint: {"x": .06, "top": 0.285}
+
+    CustButton:
+        on_press:
+            root.manager.transition.direction = "left"
+            root.manager.transition.duration = 1
+            root.manager.current ="frenchGuardScreen"
+        text: "BACK"
+        pos_hint: {"x": .01, "y": .01}
+    CustButton:
+        on_release:
+            # Her bruger vi screenmanageren i app til at bruge makeInsult(1),
+            # som ligger inde på vores frenchGuardScreen.
+            # Dette skal vi gøre da vi er på customInsultScreen nu.
+            app.screenmanager.get_screen("frenchGuardScreen").makeInsult(1)
+            root.ids.idEntryAd.text = ""
+            root.ids.idEntryJob1.text = ""
+            root.ids.idEntryVerb.text = ""
+            root.ids.idEntryJob2.text = ""
+            root.ids.idEntryFM1.text = ""
+            root.ids.idEntryFM2.text = ""
+            root.ids.idEntryNoun.text = ""
+            root.manager.transition.direction = "left"
+            root.manager.transition.duration = 1
+            root.manager.current ="frenchGuardScreen"
+        text: "MAKE MY INSULT"
+        pos_hint: {"x": .01, "y": 0.11}
