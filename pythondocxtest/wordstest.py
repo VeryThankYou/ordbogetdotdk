@@ -32,6 +32,19 @@ wordchoice = random.choices(newList, k=numsyn)
 for e in wordchoice:
     print(str(e))
 
+synonyms = wordchoice.copy()
+synonyms.reverse()
 
+for i in range(len(wordchoice)):
+    for e in range(len(listOfWords)):
+        if wordchoice[i-1] in listOfWords[e-1]:
+            listOfWords[e-1] = synonyms[i-1]
+            break
 
+newText = ' '.join(listOfWords)
+
+newdoc = docx.Document()
+newdoc.add_paragraph(newText)
+
+newdoc.save("nyfil.docx")
 document.save("Analyse og fortolkning.docx")
