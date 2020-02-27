@@ -1,6 +1,6 @@
 import docx, random
 
-document = docx.Document("Analyse og fortolkning.docx")
+document = docx.Document("AIESSAY.docx")
 
 fullText = []
 text = ""
@@ -34,4 +34,8 @@ for e in wordchoice:
 
 
 
+<<<<<<< HEAD
 document.save("Analyse og fortolkning.docx")
+=======
+document.save("AIESSAY.docx")
+>>>>>>> f50649a927e89de1abeb1d7ce6a101c59e9267ba
