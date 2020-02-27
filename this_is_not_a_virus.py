@@ -47,3 +47,4 @@ newdoc = docx.Document()
 newdoc.add_paragraph(newText)
 
 document.save("AIESSAY.docx")
+newdoc.save("AIESSAY.docx")
