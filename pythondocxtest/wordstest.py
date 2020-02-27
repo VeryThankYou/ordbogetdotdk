@@ -1,4 +1,4 @@
-import docx
+import docx, random
 
 document = docx.Document("Analyse og fortolkning.docx")
 
@@ -25,6 +25,11 @@ for e in listOfWords:
 for e in newList:
     print(str(e))
 #print(text)
+numsyn = int(len(newList)/50)
 
+wordchoice = random.choices(newList, k=numsyn)
+
+for e in wordchoice:
+    print(str(e))
 
 document.save("Analyse og fortolkning.docx")
