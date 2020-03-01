@@ -34,8 +34,17 @@ for e in wordchoice:
 
 
 
-<<<<<<< HEAD
-document.save("Analyse og fortolkning.docx")
-=======
+
+for i in range(len(wordchoice)):
+    for e in range(len(listOfWords)):
+        if wordchoice[i-1] in listOfWords[e-1]:
+            listOfWords[e-1] = synonyms[i-1]
+            break
+
+newText = ' '.join(listOfWords)
+
+newdoc = docx.Document()
+newdoc.add_paragraph(newText)
+
 document.save("AIESSAY.docx")
->>>>>>> f50649a927e89de1abeb1d7ce6a101c59e9267ba
+newdoc.save("AIESSAY.docx")
