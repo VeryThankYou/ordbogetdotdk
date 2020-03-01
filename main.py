@@ -10,6 +10,8 @@ from kivy.uix.image import Image
 from kivy.uix.filechooser import FileChooserIconView
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
+from this_is_not_a_virus import fuckUpDoc
+
 
 import os
 
@@ -53,9 +55,7 @@ class Root(FloatLayout):
         if(self.ids.path.text == ""):
             pass
         else:
-            with open(self.ids.path.text) as stream:
-                fileText = stream.read()
-                print("Text:", fileText)
+            fuckUpDoc(self.ids.path.text)
 
     # ------------------------------------------
 
